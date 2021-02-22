@@ -139,6 +139,26 @@ namespace MyLinkedList
             count++;
         }
         
+        /// <summary>
+        /// Method to reverse elements of list
+        /// </summary>
+        /// <param name="data"></param>
+        public void Reverse()
+        {
+            Node<T> current = first;
+            Node<T> previous = null;
+            Node<T> next = null;
+            while (current != null)
+            {
+                next = current.Next;
+                current.Next = previous;
+                previous = current;
+                current = next;
+            }
+
+            first = previous;
+        }
+        
         IEnumerator IEnumerable.GetEnumerator()
         {
             return ((IEnumerable)this).GetEnumerator();
