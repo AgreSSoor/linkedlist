@@ -8,6 +8,25 @@ namespace MyLinkedList
         private Node<T> last; // last element of list
         private int count; // quantity of elements
 
+        /// <summary>
+        /// Method to Add elements in List
+        /// </summary>
+        /// <param name="data"></param>
+        public void Add(T data)
+        {
+            var node = new Node<T>(data);
+            if (first == null) // If there is no first element of list, then adds element as first
+            {
+                first = node;
+            }
+            else // Adds element to the tail of list
+            {
+                last.Next = node;
+            }
+            last = node;
+            count++;
+        }
+        
         IEnumerator IEnumerable.GetEnumerator()
         {
             return ((IEnumerable)this).GetEnumerator();
