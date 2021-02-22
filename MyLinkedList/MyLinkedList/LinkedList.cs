@@ -190,6 +190,23 @@ namespace MyLinkedList
             return duplicate;
         }
         
+        /// <summary>
+        /// Copies reversed List
+        /// </summary>
+        /// <returns></returns>
+        public LinkedList<T> CopyReverse()
+        {
+            LinkedList<T> duplicate = new LinkedList<T>();
+            var current = first;
+            while (current != null)
+            {
+                duplicate.AddFirst(current.Data);
+                current = current.Next;
+            }
+
+            return duplicate;
+        }
+        
         IEnumerator IEnumerable.GetEnumerator()
         {
             return ((IEnumerable)this).GetEnumerator();
