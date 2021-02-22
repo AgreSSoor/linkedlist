@@ -83,6 +83,14 @@ namespace MyLinkedList
             get { return count; }
         }
         
+        /// <summary>
+        /// Checker if List is empty
+        /// </summary>
+        public bool IsEmpty
+        {
+            get { return count == 0; }
+        }
+        
         IEnumerator IEnumerable.GetEnumerator()
         {
             return ((IEnumerable)this).GetEnumerator();
