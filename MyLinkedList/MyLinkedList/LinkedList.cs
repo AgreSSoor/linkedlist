@@ -207,6 +207,35 @@ namespace MyLinkedList
             return duplicate;
         }
         
+        /// <summary>
+        /// Checks if Lists are equal
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public bool AreEqual(LinkedList<T> list)
+        {
+            if (count != list.count)
+            {
+                return false;
+            }
+
+            var current = first;
+            var comparable = list.first;
+
+            while (current != comparable)
+            {
+                if (current != comparable)
+                {
+                    return false;
+                }
+
+                comparable = comparable.Next;
+                current = current.Next;
+            }
+
+            return true;
+        }
+        
         IEnumerator IEnumerable.GetEnumerator()
         {
             return ((IEnumerable)this).GetEnumerator();
