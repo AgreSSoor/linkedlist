@@ -173,6 +173,23 @@ namespace MyLinkedList
             Console.WriteLine();
         }
         
+        /// <summary>
+        /// Method to duplicate a list
+        /// </summary>
+        /// <returns></returns>
+        public LinkedList<T> Duplicate()
+        {
+            LinkedList<T> duplicate = new LinkedList<T>();
+            var current = first;
+            while (current != null)
+            {
+                duplicate.Add(current.Data);
+                current = current.Next;
+            }
+
+            return duplicate;
+        }
+        
         IEnumerator IEnumerable.GetEnumerator()
         {
             return ((IEnumerable)this).GetEnumerator();
