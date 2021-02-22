@@ -75,6 +75,14 @@ namespace MyLinkedList
             return false;
         }
         
+        /// <summary>
+        /// Quantity of elements in List
+        /// </summary>
+        public int Count
+        {
+            get { return count; }
+        }
+        
         IEnumerator IEnumerable.GetEnumerator()
         {
             return ((IEnumerable)this).GetEnumerator();
