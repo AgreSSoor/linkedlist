@@ -91,6 +91,16 @@ namespace MyLinkedList
             get { return count == 0; }
         }
         
+        /// <summary>
+        /// Method to clear List
+        /// </summary>
+        public void Clear()
+        {
+            first = null;
+            last = null;
+            count = 0;
+        }
+        
         IEnumerator IEnumerable.GetEnumerator()
         {
             return ((IEnumerable)this).GetEnumerator();
