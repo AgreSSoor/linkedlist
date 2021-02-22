@@ -122,6 +122,23 @@ namespace MyLinkedList
             return false;
         }
         
+        /// <summary>
+        /// Method to Add last as first
+        /// </summary>
+        /// <param name="data"></param>
+        public void AddFirst(T data)
+        {
+            var node = new Node<T>(data);
+            node.Next = first;
+            first = node;
+            if (count == 0)
+            {
+                last = first;
+            }
+
+            count++;
+        }
+        
         IEnumerator IEnumerable.GetEnumerator()
         {
             return ((IEnumerable)this).GetEnumerator();
