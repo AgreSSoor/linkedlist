@@ -101,6 +101,27 @@ namespace MyLinkedList
             count = 0;
         }
         
+        /// <summary>
+        /// Method to check if List containts an last
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public bool Contains(T data)
+        {
+            var current = first;
+            while (current != null)
+            {
+                if (current.Data.Equals(data))
+                {
+                    return true;    
+                }
+
+                current = current.Next;
+            }
+
+            return false;
+        }
+        
         IEnumerator IEnumerable.GetEnumerator()
         {
             return ((IEnumerable)this).GetEnumerator();
