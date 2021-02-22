@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 namespace MyLinkedList
 {
@@ -157,6 +158,19 @@ namespace MyLinkedList
             }
 
             first = previous;
+        }
+        
+        /// <summary>
+        /// Method to print elements of List
+        /// </summary>
+        public void Print()
+        {
+            Node<T> current = first;
+            while (current != null) {
+                Console.WriteLine(current.Data + " ");
+                current = current.Next;
+            }
+            Console.WriteLine();
         }
         
         IEnumerator IEnumerable.GetEnumerator()
