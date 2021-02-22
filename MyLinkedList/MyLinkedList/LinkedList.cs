@@ -27,6 +27,54 @@ namespace MyLinkedList
             count++;
         }
         
+        /// <summary>
+        /// Method to Remove elements in List
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public bool Remove(T data)
+        {
+            var current = first;
+            Node<T> previous = null;
+            while (current != null)
+            {
+                if (current.Data.Equals(data))
+                {
+                    
+                    //If Node is located not in the beginning
+                    if (previous != null)
+                    {
+                        previous.Next = current.Next;
+                        
+                        //If current.Next is null, then change last variable
+                        if (current.Next == null)
+                        {
+                            last = previous;
+                        }
+                    }
+                    else
+                    {
+                        //If removing elem is first
+                        first = first.Next;
+                        
+                        //If after removing list is cleared, clear tail of list
+                        if (first == null)
+                        {
+                            last = null;
+                        }
+                    }
+
+                    count--;
+                    return true;
+                }
+
+                previous = current;
+                current = current.Next;
+            }
+
+            return false;
+        }
+        
         IEnumerator IEnumerable.GetEnumerator()
         {
             return ((IEnumerable)this).GetEnumerator();
