@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 
 namespace MyLinkedList
 {
@@ -31,6 +32,32 @@ namespace MyLinkedList
             count++;
         }
 
+        /// <summary>
+        /// Sorted adding of elements
+        /// </summary>
+        /// <param name="data"></param>
+        public void SortedAdd(T data)
+        {
+            var node = new Node<T>(data);
+            Node<T> current = null;
+            if (first == null || Comparer.Default.Compare(first.Data, node.Data) > 0 )
+            {
+                node.Next = first;
+                first = node;
+            }
+            else
+            {
+                current = first;
+                while (current.Next != null && Comparer.Default.Compare(current.Next.Data, node.Data) < 0)
+                {
+                    current = current.Next;
+                }
+
+                node.Next = current.Next;
+                current.Next = node;
+            }
+        }
+        
         /// <summary>
         /// Method to Remove elements in List
         /// </summary>

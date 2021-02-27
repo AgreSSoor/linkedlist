@@ -12,10 +12,8 @@ namespace MyLinkedList
             LinkedList<int> number = new LinkedList<int>();
             
             number.InsertArray(new int[] {1,2,3,4,5,6,7});
-           
-            linkedList.Merge(number);
-            reversedLinkedList = number.Merge(linkedList);
-            reversedLinkedList.Print();
+            number.SortedAdd(2);
+            number.Print();
             /*linkedList.Add("Ann");
             linkedList.Add("Oleksandr");
             linkedList.Add("Edik");
