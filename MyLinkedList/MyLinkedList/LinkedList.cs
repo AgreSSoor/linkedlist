@@ -288,6 +288,18 @@ namespace MyLinkedList
             return newList;
         }
 
+        /// <summary>
+        /// Adds elements from array
+        /// </summary>
+        /// <param name="data"></param>
+        public void InsertArray(T[] data)
+        {
+            foreach (var el in data)
+            {
+                Add(el);
+            }
+        }
+        
         IEnumerator IEnumerable.GetEnumerator()
         {
             return ((IEnumerable) this).GetEnumerator();
