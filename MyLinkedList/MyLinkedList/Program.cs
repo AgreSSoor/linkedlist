@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace MyLinkedList
 {
@@ -8,7 +9,16 @@ namespace MyLinkedList
         {
             LinkedList<string> linkedList = new LinkedList<string>();
             LinkedList<string> reversedLinkedList = new LinkedList<string>();
-            linkedList.Add("Ann");
+            LinkedList<int> number = new LinkedList<int>();
+            number.Add(10);
+            number.Add(20);
+            number.Add(30);
+            number.Add(15);
+            number.Add(40);
+            number.Add(7);
+            number.SortLinkedList();
+            number.Print();
+            /*linkedList.Add("Ann");
             linkedList.Add("Oleksandr");
             linkedList.Add("Edik");
             linkedList.Add("Polina");
@@ -16,7 +26,8 @@ namespace MyLinkedList
             reversedLinkedList = linkedList.CopyReverse();
             reversedLinkedList.Print();
             Console.WriteLine(linkedList.AreEqual(reversedLinkedList));
-            
+            */
+
             /*linkedList.Remove("Edik");
             bool isEmpty = linkedList.IsEmpty;
             int elemsCount = linkedList.Count;

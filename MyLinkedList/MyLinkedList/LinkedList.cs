@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+
 namespace MyLinkedList
 {
-    public class LinkedList<T> : IEnumerable<T>
+    public class LinkedList<T> : IEnumerable<T>, IComparer<T>
     {
         private Node<T> first; // first element of list
         private Node<T> last; // last element of list
@@ -24,10 +26,11 @@ namespace MyLinkedList
             {
                 last.Next = node;
             }
+
             last = node;
             count++;
         }
-        
+
         /// <summary>
         /// Method to Remove elements in List
         /// </summary>
@@ -41,12 +44,12 @@ namespace MyLinkedList
             {
                 if (current.Data.Equals(data))
                 {
-                    
+
                     //If Node is located not in the beginning
                     if (previous != null)
                     {
                         previous.Next = current.Next;
-                        
+
                         //If current.Next is null, then change last variable
                         if (current.Next == null)
                         {
@@ -57,7 +60,7 @@ namespace MyLinkedList
                     {
                         //If removing elem is first
                         first = first.Next;
-                        
+
                         //If after removing list is cleared, clear tail of list
                         if (first == null)
                         {
@@ -75,7 +78,7 @@ namespace MyLinkedList
 
             return false;
         }
-        
+
         /// <summary>
         /// Quantity of elements in List
         /// </summary>
@@ -83,7 +86,7 @@ namespace MyLinkedList
         {
             get { return count; }
         }
-        
+
         /// <summary>
         /// Checker if List is empty
         /// </summary>
@@ -91,7 +94,7 @@ namespace MyLinkedList
         {
             get { return count == 0; }
         }
-        
+
         /// <summary>
         /// Method to clear List
         /// </summary>
@@ -101,7 +104,7 @@ namespace MyLinkedList
             last = null;
             count = 0;
         }
-        
+
         /// <summary>
         /// Method to check if List containts an last
         /// </summary>
@@ -114,7 +117,7 @@ namespace MyLinkedList
             {
                 if (current.Data.Equals(data))
                 {
-                    return true;    
+                    return true;
                 }
 
                 current = current.Next;
@@ -122,7 +125,7 @@ namespace MyLinkedList
 
             return false;
         }
-        
+
         /// <summary>
         /// Method to Add last as first
         /// </summary>
@@ -139,7 +142,7 @@ namespace MyLinkedList
 
             count++;
         }
-        
+
         /// <summary>
         /// Method to reverse elements of list
         /// </summary>
@@ -159,20 +162,22 @@ namespace MyLinkedList
 
             first = previous;
         }
-        
+
         /// <summary>
         /// Method to print elements of List
         /// </summary>
         public void Print()
         {
             Node<T> current = first;
-            while (current != null) {
+            while (current != null)
+            {
                 Console.WriteLine(current.Data + " ");
                 current = current.Next;
             }
+
             Console.WriteLine();
         }
-        
+
         /// <summary>
         /// Method to duplicate a list
         /// </summary>
@@ -189,7 +194,7 @@ namespace MyLinkedList
 
             return duplicate;
         }
-        
+
         /// <summary>
         /// Copies reversed List
         /// </summary>
@@ -206,7 +211,7 @@ namespace MyLinkedList
 
             return duplicate;
         }
-        
+
         /// <summary>
         /// Checks if Lists are equal
         /// </summary>
@@ -235,12 +240,36 @@ namespace MyLinkedList
 
             return true;
         }
-        
+
+        public void SortLinkedList()
+        {
+            Node<T> temp = first;
+            Node<T> firstval = null;
+            T val = default(T);
+            while (temp != null)
+            {
+                firstval = temp.Next;
+                while (firstval != null)
+                {
+                    if (Comparer.Default.Compare(temp.Data, firstval.Data) > 0)
+                    {
+                        val = firstval.Data;
+                        firstval.Data = temp.Data;
+                        temp.Data = val;
+                    }
+
+                    firstval = firstval.Next;
+                }
+
+                temp = temp.Next;
+            }
+        }
+
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return ((IEnumerable)this).GetEnumerator();
+            return ((IEnumerable) this).GetEnumerator();
         }
- 
+
         IEnumerator<T> IEnumerable<T>.GetEnumerator()
         {
             var current = first;
@@ -249,6 +278,11 @@ namespace MyLinkedList
                 yield return current.Data;
                 current = current.Next;
             }
+        }
+
+        public int Compare(T x, T y)
+        {
+            return (Comparer.Default.Compare(x, y));
         }
     }
 }
