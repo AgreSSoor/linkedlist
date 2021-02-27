@@ -339,6 +339,18 @@ namespace MyLinkedList
             newList.SortLinkedList();
             return newList;
         }
+
+        /// <summary>
+        /// Appends sorted linked list L2 of integer items at the end of list L1 of the same type (class);
+        /// So the result is in L1;
+        ///	Rearranges the content of L1 to make it sorted again.
+        /// </summary>
+        /// <param name="list"></param>
+        public void AppendOrdered(LinkedList<T> list)
+        {
+            InsertArray(list.ToArray());
+            SortLinkedList();
+        }
         
         IEnumerator IEnumerable.GetEnumerator()
         {

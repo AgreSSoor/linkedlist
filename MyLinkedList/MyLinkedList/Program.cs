@@ -7,13 +7,12 @@ namespace MyLinkedList
     {
         public static void Main(string[] args)
         {
-            LinkedList<int> linkedList = LinkedList<int>.FromArray(new int[] {1,2,3,4,5,6,7});
-            LinkedList<int> reversedLinkedList = new LinkedList<int>();
+            LinkedList<int> linkedList = LinkedList<int>.FromArray(new int[] {20,19,18,17});
+            LinkedList<int> reversedLinkedList = LinkedList<int>.FromArray(new int[] {1,2,3,4,5});
             LinkedList<int> number = new LinkedList<int>();
+            linkedList.AppendOrdered(reversedLinkedList);
+            linkedList.Print();
             
-            number.InsertArray(new int[] {1,2,3,4,5,6,7});
-            number.SortedAdd(2);
-            number.Print();
             /*linkedList.Add("Ann");
             linkedList.Add("Oleksandr");
             linkedList.Add("Edik");
