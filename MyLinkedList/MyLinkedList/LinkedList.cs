@@ -300,6 +300,19 @@ namespace MyLinkedList
             }
         }
         
+        /// <summary>
+        /// Merges 2 lists and return sorted new list
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public LinkedList<T> Merge(LinkedList<T> list)
+        {
+            LinkedList<T> newList = Duplicate();
+            newList.InsertArray(list.ToArray());
+            newList.SortLinkedList();
+            return newList;
+        }
+        
         IEnumerator IEnumerable.GetEnumerator()
         {
             return ((IEnumerable) this).GetEnumerator();
