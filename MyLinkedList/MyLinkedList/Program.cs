@@ -7,17 +7,15 @@ namespace MyLinkedList
     {
         public static void Main(string[] args)
         {
-            LinkedList<string> linkedList = new LinkedList<string>();
-            LinkedList<string> reversedLinkedList = new LinkedList<string>();
+            LinkedList<int> linkedList = LinkedList<int>.FromArray(new int[] {1,2,3,4,5,6,7});
+            LinkedList<int> reversedLinkedList = new LinkedList<int>();
             LinkedList<int> number = new LinkedList<int>();
-            number.Add(10);
-            number.Add(20);
-            number.Add(30);
-            number.Add(15);
-            number.Add(40);
-            number.Add(7);
-            number.SortLinkedList();
-            number.Print();
+            
+            number.InsertArray(new int[] {1,2,3,4,5,6,7});
+           
+            linkedList.Merge(number);
+            reversedLinkedList = number.Merge(linkedList);
+            reversedLinkedList.Print();
             /*linkedList.Add("Ann");
             linkedList.Add("Oleksandr");
             linkedList.Add("Edik");

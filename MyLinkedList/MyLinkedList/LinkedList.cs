@@ -7,9 +7,9 @@ namespace MyLinkedList
 {
     public class LinkedList<T> : IEnumerable<T>, IComparer<T>
     {
-        private Node<T> first; // first element of list
-        private Node<T> last; // last element of list
-        private int count; // quantity of elements
+        private Node<T> first;
+        private Node<T> last;
+        private int count;
 
         /// <summary>
         /// Method to Add elements in List
@@ -18,11 +18,11 @@ namespace MyLinkedList
         public void Add(T data)
         {
             var node = new Node<T>(data);
-            if (first == null) // If there is no first element of list, then adds element as first
+            if (first == null)
             {
                 first = node;
             }
-            else // Adds element to the tail of list
+            else
             {
                 last.Next = node;
             }
@@ -171,10 +171,9 @@ namespace MyLinkedList
             Node<T> current = first;
             while (current != null)
             {
-                Console.WriteLine(current.Data + " ");
+                Console.Write($"{current.Data} ");
                 current = current.Next;
             }
-
             Console.WriteLine();
         }
 
@@ -241,6 +240,9 @@ namespace MyLinkedList
             return true;
         }
 
+        /// <summary>
+        /// Sorts list
+        /// </summary>
         public void SortLinkedList()
         {
             Node<T> temp = first;
@@ -264,6 +266,27 @@ namespace MyLinkedList
                 temp = temp.Next;
             }
         }
+        
+        public int Compare(T x, T y)
+        {
+            return (Comparer.Default.Compare(x, y));
+        }
+
+        /// <summary>
+        /// Returns new list with elements from an array
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static LinkedList<T> FromArray(T[] data)
+        {
+            LinkedList<T> newList = new LinkedList<T>();
+            foreach (var el in data)
+            {
+                newList.Add(el);
+            }
+
+            return newList;
+        }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
@@ -280,9 +303,5 @@ namespace MyLinkedList
             }
         }
 
-        public int Compare(T x, T y)
-        {
-            return (Comparer.Default.Compare(x, y));
-        }
     }
 }
