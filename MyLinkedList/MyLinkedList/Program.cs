@@ -10,9 +10,8 @@ namespace MyLinkedList
             LinkedList<int> linkedList = LinkedList<int>.FromArray(new int[] {20,19,18,17});
             LinkedList<int> reversedLinkedList = LinkedList<int>.FromArray(new int[] {1,2,3,4,5});
             LinkedList<int> number = new LinkedList<int>();
-            linkedList.AppendOrdered(reversedLinkedList);
+            linkedList.SortMerge(reversedLinkedList);
             linkedList.Print();
-            
             /*linkedList.Add("Ann");
             linkedList.Add("Oleksandr");
             linkedList.Add("Edik");

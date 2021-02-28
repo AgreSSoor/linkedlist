@@ -328,14 +328,17 @@ namespace MyLinkedList
         }
         
         /// <summary>
-        /// Merges 2 lists and return sorted new list
+        /// Merges 2 lists without sort
         /// </summary>
         /// <param name="list"></param>
         /// <returns></returns>
-        public LinkedList<T> Merge(LinkedList<T> list)
+        public static LinkedList<T> Merge(LinkedList<T> list, LinkedList<T> list2)
         {
-            LinkedList<T> newList = Duplicate();
-            newList.InsertArray(list.ToArray());
+            if (list == null) throw new ArgumentNullException(nameof(list));
+            if (list2 == null) throw new ArgumentNullException(nameof(list2));
+            
+            LinkedList<T> newList = list;
+            newList.InsertArray(list2.ToArray());
             newList.SortLinkedList();
             return newList;
         }
@@ -346,7 +349,7 @@ namespace MyLinkedList
         ///	Rearranges the content of L1 to make it sorted again.
         /// </summary>
         /// <param name="list"></param>
-        public void AppendOrdered(LinkedList<T> list)
+        public void SortMerge(LinkedList<T> list)
         {
             InsertArray(list.ToArray());
             SortLinkedList();
