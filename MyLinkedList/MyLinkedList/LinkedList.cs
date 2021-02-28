@@ -352,6 +352,37 @@ namespace MyLinkedList
             SortLinkedList();
         }
         
+        /// <summary>
+        /// Removes duplicates from list
+        /// </summary>
+        /// <returns></returns>
+        public LinkedList<T> RemoveDuplicates()
+        {
+            LinkedList<T> newList = new LinkedList<T>();
+            Node<T> current = first;
+            while (current != null)
+            {
+                if (!newList.Contains(current.Data))
+                {
+                    newList.SortedAdd(current.Data);
+                }
+                current = current.Next;
+            }
+            
+            return newList;
+        }
+        
+        /// <summary>
+        /// Appends sorted linked list L2 of integer items at the end of list L1 of the same type (class); So the result is in L1;
+        ///	Remove the node with the third-largest data item from L1. Return the removed data item.
+        /// </summary>
+        /// <returns></returns>
+        public T AppendSelect(LinkedList<T> list)
+        {
+            InsertArray(list.ToArray());
+            return RemoveDuplicates().OrderByDescending(x => x).ToArray()[2];
+        }
+        
         IEnumerator IEnumerable.GetEnumerator()
         {
             return ((IEnumerable) this).GetEnumerator();
