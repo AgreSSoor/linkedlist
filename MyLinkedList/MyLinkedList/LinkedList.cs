@@ -3,14 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
+using System.Threading;
 
 namespace MyLinkedList
 {
     public class LinkedList<T> : IEnumerable<T>, IComparer<T>
     {
-        private Node<T> first;
-        private Node<T> last;
-        private int count;
+        private Node<T> _first;
+        private Node<T> _last;
 
         /// <summary>
         /// Method to Add elements in List
@@ -19,17 +19,17 @@ namespace MyLinkedList
         public void Add(T data)
         {
             var node = new Node<T>(data);
-            if (first == null)
+            if (_first == null)
             {
-                first = node;
+                _first = node;
             }
             else
             {
-                last.Next = node;
+                _last.Next = node;
             }
 
-            last = node;
-            count++;
+            _last = node;
+            Count++;
         }
 
         /// <summary>
@@ -37,26 +37,26 @@ namespace MyLinkedList
         /// </summary>
         /// <param name="data"></param>
         public void SortedAdd(T data)
-        {
-            var node = new Node<T>(data);
-            Node<T> current = null;
-            if (first == null || Comparer.Default.Compare(first.Data, node.Data) > 0 )
-            {
-                node.Next = first;
-                first = node;
-            }
-            else
-            {
-                current = first;
-                while (current.Next != null && Comparer.Default.Compare(current.Next.Data, node.Data) < 0)
-                {
-                    current = current.Next;
-                }
-
-                node.Next = current.Next;
-                current.Next = node;
-            }
-        }
+                 {
+                     var node = new Node<T>(data);
+                     Node<T> current = null;
+                     if (_first == null || Comparer.Default.Compare(_first.Data, node.Data) > 0 )
+                     {
+                         node.Next = _first;
+                         _first = node;
+                     }
+                     else
+                     {
+                         current = _first;
+                         while (current.Next != null && Comparer.Default.Compare(current.Next.Data, node.Data) < 0)
+                         {
+                             current = current.Next;
+                         }
+         
+                         node.Next = current.Next;
+                         current.Next = node;
+                     }
+                 }
         
         /// <summary>
         /// Method to Remove elements in List
@@ -65,7 +65,7 @@ namespace MyLinkedList
         /// <returns></returns>
         public bool Remove(T data)
         {
-            var current = first;
+            var current = _first;
             Node<T> previous = null;
             while (current != null)
             {
@@ -80,22 +80,22 @@ namespace MyLinkedList
                         //If current.Next is null, then change last variable
                         if (current.Next == null)
                         {
-                            last = previous;
+                            _last = previous;
                         }
                     }
                     else
                     {
                         //If removing elem is first
-                        first = first.Next;
+                        _first = _first.Next;
 
                         //If after removing list is cleared, clear tail of list
-                        if (first == null)
+                        if (_first == null)
                         {
-                            last = null;
+                            _last = null;
                         }
                     }
 
-                    count--;
+                    Count--;
                     return true;
                 }
 
@@ -109,17 +109,14 @@ namespace MyLinkedList
         /// <summary>
         /// Quantity of elements in List
         /// </summary>
-        public int Count
-        {
-            get { return count; }
-        }
+        public int Count { get; private set; }
 
         /// <summary>
         /// Checker if List is empty
         /// </summary>
         public bool IsEmpty
         {
-            get { return count == 0; }
+            get { return Count == 0; }
         }
 
         /// <summary>
@@ -127,9 +124,9 @@ namespace MyLinkedList
         /// </summary>
         public void Clear()
         {
-            first = null;
-            last = null;
-            count = 0;
+            _first = null;
+            _last = null;
+            Count = 0;
         }
 
         /// <summary>
@@ -139,7 +136,7 @@ namespace MyLinkedList
         /// <returns></returns>
         public bool Contains(T data)
         {
-            var current = first;
+            var current = _first;
             while (current != null)
             {
                 if (current.Data.Equals(data))
@@ -152,22 +149,38 @@ namespace MyLinkedList
 
             return false;
         }
-
+        
         /// <summary>
-        /// Method to Add last as first
+        /// Method to search elements
         /// </summary>
         /// <param name="data"></param>
+        public Node<T> Find(T data)
+        {
+            var current = _first;
+            while (current != null)
+            {
+                if (current.Data.Equals(data))
+                {
+                    return current;
+                }
+
+                current = current.Next;
+            }
+
+            return default;
+        }
+        
         public void AddFirst(T data)
         {
             var node = new Node<T>(data);
-            node.Next = first;
-            first = node;
-            if (count == 0)
+            node.Next = _first;
+            _first = node;
+            if (Count == 0)
             {
-                last = first;
+                _last = _first;
             }
 
-            count++;
+            Count++;
         }
 
         /// <summary>
@@ -176,7 +189,7 @@ namespace MyLinkedList
         /// <param name="data"></param>
         public void Reverse()
         {
-            Node<T> current = first;
+            Node<T> current = _first;
             Node<T> previous = null;
             Node<T> next = null;
             while (current != null)
@@ -187,7 +200,7 @@ namespace MyLinkedList
                 current = next;
             }
 
-            first = previous;
+            _first = previous;
         }
 
         /// <summary>
@@ -195,7 +208,7 @@ namespace MyLinkedList
         /// </summary>
         public void Print()
         {
-            Node<T> current = first;
+            Node<T> current = _first;
             while (current != null)
             {
                 Console.Write($"{current.Data} ");
@@ -211,7 +224,7 @@ namespace MyLinkedList
         public LinkedList<T> Duplicate()
         {
             LinkedList<T> duplicate = new LinkedList<T>();
-            var current = first;
+            var current = _first;
             while (current != null)
             {
                 duplicate.Add(current.Data);
@@ -228,7 +241,7 @@ namespace MyLinkedList
         public LinkedList<T> CopyReverse()
         {
             LinkedList<T> duplicate = new LinkedList<T>();
-            var current = first;
+            var current = _first;
             while (current != null)
             {
                 duplicate.AddFirst(current.Data);
@@ -245,13 +258,13 @@ namespace MyLinkedList
         /// <returns></returns>
         public bool AreEqual(LinkedList<T> list)
         {
-            if (count != list.count)
+            if (Count != list.Count)
             {
                 return false;
             }
 
-            var current = first;
-            var comparable = list.first;
+            var current = _first;
+            var comparable = list._first;
 
             while (current != comparable)
             {
@@ -272,7 +285,7 @@ namespace MyLinkedList
         /// </summary>
         public void SortLinkedList()
         {
-            Node<T> temp = first;
+            Node<T> temp = _first;
             Node<T> firstval = null;
             T val = default(T);
             while (temp != null)
@@ -304,14 +317,13 @@ namespace MyLinkedList
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public static LinkedList<T> FromArray(T[] data)
+        public static LinkedList<T> FromArray(params T[] data)
         {
             LinkedList<T> newList = new LinkedList<T>();
             foreach (var el in data)
             {
                 newList.Add(el);
             }
-
             return newList;
         }
 
@@ -319,7 +331,7 @@ namespace MyLinkedList
         /// Adds elements from array
         /// </summary>
         /// <param name="data"></param>
-        public void InsertArray(T[] data)
+        public void InsertArray(params T[] data)
         {
             foreach (var el in data)
             {
@@ -362,7 +374,7 @@ namespace MyLinkedList
         public LinkedList<T> RemoveDuplicates()
         {
             LinkedList<T> newList = new LinkedList<T>();
-            Node<T> current = first;
+            Node<T> current = _first;
             while (current != null)
             {
                 if (!newList.Contains(current.Data))
@@ -393,7 +405,7 @@ namespace MyLinkedList
 
         IEnumerator<T> IEnumerable<T>.GetEnumerator()
         {
-            var current = first;
+            var current = _first;
             while (current != null)
             {
                 yield return current.Data;
