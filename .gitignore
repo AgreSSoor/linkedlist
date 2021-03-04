@@ -105,6 +105,7 @@ ExportedObj/
 *.pdb
 *.opendb
 *.VC.db
+.exe
 
 # Unity3D generated meta files
 *.pidb.meta
@@ -141,5 +142,4 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-
 # End of https://www.gitignore.io/api/unity,windows,jetbrains+all
